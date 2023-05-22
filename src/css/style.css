@@ -23,3 +23,35 @@ body {
   padding-bottom: 10px;
   background-color: rgb(0, 102, 255);
 }
+.gallery {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  padding: 0;
+  justify-content: center;
+}
+.photo-card {
+ flex-basis: calc((100% - 40px ) / 4);
+  border: 1.5px solid #cccccc;
+}
+.info {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.info-item {
+  display: flex;
+  align-items: center;
+  margin-left: 10px;
+}
+p{
+  margin: 0;
+ text-align: center;
+}
+.load-more{
+margin-left: 50%;
+transform: translateX(-50%);
+}
+.is-hidden {
+  display: none;
+}
