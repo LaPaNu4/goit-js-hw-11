@@ -50,8 +50,6 @@ p{
 }
 .load-more{
 margin-left: 50%;
+display: none;
 transform: translateX(-50%);
-}
-.is-hidden {
-  display: none;
 }

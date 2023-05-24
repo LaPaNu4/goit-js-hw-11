@@ -11,6 +11,8 @@ refs.submitBtn.addEventListener('click', newBtnClick);
 
 async function newBtnClick(e) {
   e.preventDefault();
+  refs.galleryEl.innerHTML = '';
+  apiService.page = 1;
   const value = refs.searchQ.value.trim();
   if (value === '') {
     return Notiflix.Notify.failure('Заповніть поле!');
@@ -22,30 +24,45 @@ async function newBtnClick(e) {
         'Sorry, there are no images matching your search query. Please try again.'
       );
     }
-    refs.galleryEl.innerHTML = '';
-    markUp(data);
-    console.log(apiService.value);
-    refs.loadMorebnt.classList.remove('is-hidden');
+    console.log(data);
+    if (data.totalHits > 40) {
+      apiService.page++;
+    }
+    markUp(data.hits);
+    if (apiService.page === Number(Math.ceil(data.totalHits / 40))) {
+      refs.loadMorebnt.style.display = 'none';
+      return Notiflix.Notify.info(
+        "We're sorry, but you've reached the end of search results."
+      );
+    } else {
+      refs.loadMorebnt.style.display = 'block';
+    }
+    refs.loadMorebnt.style.display = 'block';
   });
 }
 
 refs.loadMorebnt.addEventListener('click', async e => {
   try {
     e.preventDefault();
-    apiService.page++;
-    
+
     const data = await apiService.fetchData();
-    if (data.length === 0) {
-     
+    markUp(data.hits);
+    if (apiService.page === Number(Math.ceil(data.totalHits / 40))) {
+      refs.loadMorebnt.style.display = 'none';
+      return Notiflix.Notify.info(
+        "We're sorry, but you've reached the end of search results."
+      );
+    } else {
+      refs.loadMorebnt.style.display = 'block';
     }
-    markUp(data);
+    console.log(data.totalHits);
+    apiService.page++;
+
+    console.log(Math.ceil(data.totalHits / 40));
   } catch (err) {
-     return Notiflix.Notify.info(
-       "We're sorry, but you've reached the end of search results."
-     );;
+    console.log(err);
   }
 });
-
 function markUp(data) {
   refs.galleryEl.insertAdjacentHTML(
     'beforeend',

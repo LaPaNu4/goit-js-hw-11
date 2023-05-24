@@ -11,7 +11,7 @@ class APIService {
     const data = await axios.get(
       `${this.API}?key=${this.API_KEY}&q=${this.value}&image_type=photo&orientation=horizontal&safesearch=true&page=${this.page}&per_page=40`
     );
-    return data.data.hits
+    return data.data
   }
 }
 
