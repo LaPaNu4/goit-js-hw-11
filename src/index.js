@@ -19,7 +19,7 @@ async function newBtnClick(e) {
   }
   apiService.value = value;
   await apiService.fetchData(value).then(data => {
-    if (data.length === 0) {
+    if (data.hits.length === 0) {
       return Notiflix.Notify.failure(
         'Sorry, there are no images matching your search query. Please try again.'
       );
